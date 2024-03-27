@@ -122,19 +122,25 @@ describe('Zombie', () => {
 });
 
 describe('levelUp', () => {
-  test('levelUp should increase level, attack, and defence when health is greater than 0', () => {
-  const character = new Zombie('Vurdalak');
-  character.levelUp();
-  expect(character.level).toBe(2);
-  expect(character.attack).toBe(48);
-  expect(character.defence).toBe(12);
-  expect(character.health).toBe(100);
-    });
+  test('levelUp should increase level, attack, and defence when health is more than 0', () => {
+    const character = new Zombie('Vurdalak');
+    character.levelUp();
+    expect(character.level).toBe(2);
+    expect(character.attack).toBe(48);
+    expect(character.defence).toBe(12);
+    expect(character.health).toBe(100);
+  });
+
+  test('throw error if health is 0', () => {
+    const character = new Zombie('Vurdalak');
+    character.health = 0;
+    expect(() => character.levelUp()).toThrow('Нельзя повысить левел умершего');
+  });
 });
 
 
 describe('damage', () => {
-  test('should reduce health correctly when points is greater than 0 and this.health is greater than 0', () => {
+  test('should reduce health when points is more than 0 and health is more than 0', () => {
     const character = new Character('Test', 'Bowerman');
     character.health = 100;
     character.defence = 10;
@@ -154,7 +160,7 @@ describe('damage', () => {
     expect(character.health).toBe(100);
   });
 
-  test('should not reduce health when this.health is 0', () => {
+  test('should not reduce health when health is 0', () => {
     const character = new Character('Test', 'Bowerman');
     character.health = 0;
     character.defence = 10;

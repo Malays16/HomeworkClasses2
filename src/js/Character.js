@@ -23,6 +23,8 @@ export class Character {
       this.attack = this.attack * 1.2;
       this.defence = this.defence * 1.2;
       this.health = 100;
+    } else {
+      throw new Error('Нельзя повысить левел умершего');
     }
   }
 
